@@ -26,6 +26,27 @@
 	</table>
 </template>
 
+<template name="add">
+	{{#with club}}
+	<p>Become a potential member of <strong>{{clubname}}</strong></p>
+
+	<p><em>There are {{members}} other members!</em></p>
+	{{/with}}
+	<form>
+		<input type="text" id="a_name" placeholder="Your Name">
+		<input type="text" id="a_netid" placeholder="NYU Net ID">
+		<input type="text" id="a_nationality" placeholder="Nationality">
+		<button id="a_submit">Submit</button>
+	</form>
+
+	<div id="a_message">
+		{{#each a_message}}
+		{{this}}
+		{{/each}}
+
+	</div>
+</template>
+
 <template name="club_li">
 	<tr>
 		<td>{{ clubname }}</td>
@@ -54,17 +75,19 @@
 <template name="club">
 	{{#with club}}
 		<h3>{{ clubname }}</h3>
-		<p>posted by {{ name }}</p>
+		<p>posted by {{ founder }}</p>
 		<p>Description: {{ description }}</p>
 		<p>Members: {{ members }}</p>
 		
+		<button id="join">I'm interested!</button>
+
 		{{#each club_members}}
 			<div>
 				<h4>{{ name }}</h4>
 				<p>{{ netid }}@nyu.edu</p>
 				<p>{{ nationality }}</p>
 			</div>
-		{{/each}}	
+		{{/each}}
 
 	{{/with}}
 </template>
