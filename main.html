@@ -36,7 +36,23 @@
 	</tr>
 </template>
 
+<template name="create">
+	<form>
+		<input type="text" id="f_name" placeholder="Your Name">
+		<input type="text" id="f_clubname" placeholder="Club Name">
+		<input type="text" id="f_netid" placeholder="NYU Net ID">
+		<input type="text" id="f_nationality" placeholder="Nationality">
+		<textarea id="f_description" placeholder="Description"></textarea>
+		<button id="create_submit">Submit</button>
+	</form>
 
+	<div id="notification">
+		{{#each message}}
+			{{this}}
+		{{/each}}
+	</div>
+
+</template>
 
 
 
