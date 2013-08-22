@@ -3,9 +3,13 @@ Meteor.Router.add(
     '/' : 'browse',
     '/create' : 'create',
     '/how' : 'how',
-    '/club/:id' : function(id) {
-        Session.set('room_id', id);
-        return 'room'; 
+    '/club/:url' : function(url) {
+        Session.set('club', url);
+        return 'club'; 
+      },
+      '/add/:url' : function(url) {
+      	Session.set('club', url);
+        return 'add'; 
       },
     '*' : 'error'
 });

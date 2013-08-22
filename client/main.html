@@ -20,15 +20,13 @@
 
 <template name="browse">
 	<table>
-		<p>test</p>
 	{{#each clubs}}
-		{{> club}}
+		{{> club_li}}
 	{{/each}}
-
 	</table>
 </template>
 
-<template name="club">
+<template name="club_li">
 	<tr>
 		<td>{{ clubname }}</td>
 		<td>{{ founder }}</td>
@@ -51,7 +49,24 @@
 			{{this}}
 		{{/each}}
 	</div>
+</template>
 
+<template name="club">
+	{{#with club}}
+		<h3>{{ clubname }}</h3>
+		<p>posted by {{ name }}</p>
+		<p>Description: {{ description }}</p>
+		<p>Members: {{ members }}</p>
+		
+		{{#each club_members}}
+			<div>
+				<h4>{{ name }}</h4>
+				<p>{{ netid }}@nyu.edu</p>
+				<p>{{ nationality }}</p>
+			</div>
+		{{/each}}	
+
+	{{/with}}
 </template>
 
 
