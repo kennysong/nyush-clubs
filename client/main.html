@@ -4,7 +4,7 @@
   <link href="/css/bootstrap.css" rel="stylesheet">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   <script src="/js/typeahead.min.js"></script>
-  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:100,200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic|Lato:100,300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300|Lato:100,300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
 
 </head>
 
@@ -28,30 +28,29 @@
 </body>
 
 <template name="browse">
-	<h3 style="text-align:center">Check out our list of potential clubs! </h3>
+	<h3 style="text-align:center">Browse our list of potential clubs</h3>
 
 	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th style="border-bottom:none;">Club Name</th>
-				<th style="border-bottom:none;">Founder</th>
-				<th style="border-bottom:none;">Number of Members</th>
-			</tr>
-		</thead>
 		<tbody>
 			{{#each first_clubs}}
 				<tr class="top-tr">
-					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">{{ clubname }}</td>
-					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">{{ founder }}</td>
-					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">{{ members }}</td>
+					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">
+						<a href="/club/{{url}}">{{ clubname }}</a>
+					</td>
+					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">
+						{{ founder }}
+					</td>
+					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">
+						{{ members }} <span style="font-weight:300;color:gray;">members</span>
+					</td>
 				</tr>
 			{{/each}}
 
 			{{#each last_clubs}}
 				<tr>
-					<td>{{ clubname }}</td>
+					<td><a href="/club/{{url}}">{{ clubname }}</a></td>
 					<td>{{ founder }}</td>
-					<td>{{ members }}</td>
+					<td>{{ members }} <span style="font-weight:300;color:gray;">member{{#if greater members "1"}}s{{/if}}</span></td>
 				</tr>
 			{{/each}}
 		</tbody>
@@ -78,11 +77,9 @@
 	</div>
 </template>
 
-
-
 <template name="create">
 
-<h3 style="text-align:center">Post a club that you want to start</h3>
+	<h3 style="text-align:center">Post a club that you want to start</h3>
 
 	<form role="form" style="width:300px;">
 		  <div class="form-group">
@@ -94,9 +91,7 @@
 		    <label for="f_clubname">Club Name</label>
 		    <input type="text" id="f_clubname" class="form-control" placeholder="Club Name">
 		  </div>
-
-
-		
+	
 		<div class="form-group">
 			<label for="f_netid">NYU Email</label>
 			<div class="input-group">
@@ -113,7 +108,86 @@
 		<div class="form-group">
 		    <label for="f_description">Describe the club:</label>
 		    <textarea id="f_description" class="form-control" placeholder="Description" style="width: 450px;height: 125px;"></textarea>
-		</div>		
+		</div>
+
+		<div class="form-group">
+		    <label for="f_tag1">Tag its categories:</label>
+		    <select id="f_tag1" class="form-control tagged" style="width:180px">
+				<option>Academic</option>
+				<option>Art</option>
+				<option>Athletics</option>
+				<option>Career Oriented</option>
+				<option>Community Service</option>
+				<option>Cultural</option>
+				<option>Dance</option>
+				<option>Debate/Speech</option>
+				<option>Environment</option>
+				<option>Foreign Language</option>
+				<option>Journalism/Publication</option>
+				<option>LGBT</option>
+				<option>Music</option>
+				<option>Politics/Activism</option>
+				<option>Recreational</option>
+				<option>Religious</option>
+				<option>School Spirit</option>
+				<option>Science/Math</option>
+				<option>Student Government</option>
+				<option>Technology</option>
+				<option>Theater/Drama</option>
+				<option>Other</option>
+			</select>
+
+			<select id="f_tag2" class="form-control" style="margin-top:5px;display:none;width:180px">
+				<option>Academic</option>
+				<option>Art</option>
+				<option>Athletics</option>
+				<option>Career Oriented</option>
+				<option>Community Service</option>
+				<option>Cultural</option>
+				<option>Dance</option>
+				<option>Debate/Speech</option>
+				<option>Environment</option>
+				<option>Foreign Language</option>
+				<option>Journalism/Publication</option>
+				<option>LGBT</option>
+				<option>Music</option>
+				<option>Politics/Activism</option>
+				<option>Recreational</option>
+				<option>Religious</option>
+				<option>School Spirit</option>
+				<option>Science/Math</option>
+				<option>Student Government</option>
+				<option>Technology</option>
+				<option>Theater/Drama</option>
+				<option>Other</option>
+			</select>
+			<select id="f_tag3" class="form-control" style="margin-top:5px;display:none;width:180px">
+				<option>Academic</option>
+				<option>Art</option>
+				<option>Athletics</option>
+				<option>Career Oriented</option>
+				<option>Community Service</option>
+				<option>Cultural</option>
+				<option>Dance</option>
+				<option>Debate/Speech</option>
+				<option>Environment</option>
+				<option>Foreign Language</option>
+				<option>Journalism/Publication</option>
+				<option>LGBT</option>
+				<option>Music</option>
+				<option>Politics/Activism</option>
+				<option>Recreational</option>
+				<option>Religious</option>
+				<option>School Spirit</option>
+				<option>Science/Math</option>
+				<option>Student Government</option>
+				<option>Technology</option>
+				<option>Theater/Drama</option>
+				<option>Other</option>
+			</select>
+
+			<button id="add_tag" class="btn btn-default" style="margin-top:5px;">Add Tag +</button>
+		</div>
 		
 		{{#constant}}<button id="create_submit" class="btn btn-primary">Submit</button>{{/constant}}
 	</form>

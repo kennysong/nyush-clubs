@@ -101,6 +101,14 @@ Template.create.rendered = function() {
   $('#f_nationality').typeahead({source: nats}); 
 }
 
+Template.browse.greater = function(a, b) {
+  if(a > b) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 Template.create.events({
   'click #create_submit' : function () {
     event.preventDefault();
@@ -143,6 +151,16 @@ Template.create.events({
       errors.push('Description must be under 100 characters.');
     }
 
+    var tags = [$('#f_tag1').val()];
+
+    if ($('#f_tag2').hasClass('tagged')) {
+        tags.push($('#f_tag2').val());
+    }
+
+    if ($('#f_tag3').hasClass('tagged')) {
+        tags.push($('#f_tag3').val());
+    }
+
     if (errors.length != 0) {
       Session.set('message', errors);
       $('html, body').animate({scrollTop:$(document).height()}, 'slow');
@@ -152,7 +170,7 @@ Template.create.events({
       Session.set('message', null);
       
       var club = {'founder':f_name, 'clubname':f_clubname, 'netid':f_netid, 'url':url,
-                  'description':f_description, 'members':1, 'member_list':[f_netid]};
+                  'description':f_description, 'members':1, 'member_list':[f_netid], 'tags':tags};
       Clubs.insert(club);
 
       var user = {'netid':f_netid, 'name':f_name, 'nationality':f_nationality}
@@ -163,6 +181,18 @@ Template.create.events({
 
     }
 
+  },
+
+  'click #add_tag': function() {
+    event.preventDefault();
+    if ($('#f_tag2').hasClass('tagged')) {
+      $('#f_tag3').addClass('tagged');
+      $('#f_tag3').show();
+      $('#add_tag').hide();
+    } else {
+      $('#f_tag2').addClass('tagged');
+      $('#f_tag2').show();
+    }
   }
 });
 

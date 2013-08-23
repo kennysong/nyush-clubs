@@ -2,6 +2,7 @@ Handlebars.registerHelper("activeNav", function (nav) {
   return Session.equals("activeNav", nav) ? "active" : "";
 });
 
+
 Meteor.Router.add(
   {
     '/' : function() {

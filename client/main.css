@@ -56,7 +56,14 @@ td {
     font-weight: 300;
 }
 
+h3 {
+	font-family: 'Oxygen', Arial !important;
+}
 
+table a {
+	color: gray;
+	font-weight: 400;
+}
 
 .container {
 	max-width: none !important;
