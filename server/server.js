@@ -1,10 +1,7 @@
 Meteor.startup(function () {
     if (Clubs.find().count() === 0) {
-      var names = ["Club 1",
-                   "Club 2"];
-      for (var i = 0; i < names.length; i++)
-        Clubs.insert({clubname: names[i], founder: 'Kenny Song', members: Math.floor(Random.fraction()*10)});
-    }
+        Clubs.insert({clubname: 'Triathlon Club', founder: 'Roman Chen', members: 1, nationality:'Chinese', netid:'zc562', tags:['Athletics'], member_list:'zc562', url:'triathlon-club', description:'test'});
+
 
     if (Nationalities.find().count() === 0) {
     	var nats = ['American (USA)', 'Chinese', 'Russian', 'Pakistanian', 'Indonesian', 'Indian', 
@@ -12,5 +9,6 @@ Meteor.startup(function () {
     	Nationalities.insert({'nationalities':nats})
     }
 
-  });
+  }
+});
 
