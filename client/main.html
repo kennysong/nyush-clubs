@@ -1,28 +1,60 @@
 <head>
   <title>NYUSH Clubs</title>
   
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/bootstrap.css" rel="stylesheet">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+  <script src="/js/typeahead.min.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:100,200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic|Lato:100,300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+
 </head>
 
 <body>
-	<nav>
-		<a href="/">Browse</a>
-		<a href="/create">Create</a>
-		<a href="/how">How?</a>
-	</nav>
+	<div class="container">
+		<div class="header">
+			<ul class="nav nav-pills pull-right"  style="margin-top:50px;">
+				<li class="{{activeNav 'browse'}}"><a href="/">Browse</a></li>
+				<li class="{{activeNav 'create'}}"><a href="/create">Create</a></li>
+				<li class="{{activeNav 'how'}}"><a href="/how">How?</a></li>
+			</ul>
+			<h3><img src="/img/logo.jpg" style="width:85px;"><span style="position: relative;top: 31px;left: 13px;color: rgb(60, 60, 60);font-size: 24px;font-weight: 300;font-family: 'Lato'">CLUBS</span></h3>
+		</div>
 
 
-	{{ renderPage }}
+		{{ renderPage }}      
 
+    </div> 
+
+	
 </body>
 
 <template name="browse">
-	<table>
-	{{#each clubs}}
-		{{> club_li}}
-	{{/each}}
+	<h3 style="text-align:center">Check out our list of potential clubs! </h3>
+
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th style="border-bottom:none;">Club Name</th>
+				<th style="border-bottom:none;">Founder</th>
+				<th style="border-bottom:none;">Number of Members</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each first_clubs}}
+				<tr class="top-tr">
+					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">{{ clubname }}</td>
+					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">{{ founder }}</td>
+					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">{{ members }}</td>
+				</tr>
+			{{/each}}
+
+			{{#each last_clubs}}
+				<tr>
+					<td>{{ clubname }}</td>
+					<td>{{ founder }}</td>
+					<td>{{ members }}</td>
+				</tr>
+			{{/each}}
+		</tbody>
 	</table>
 </template>
 
@@ -39,37 +71,62 @@
 		<button id="a_submit">Submit</button>
 	</form>
 
-	<div id="a_message">
+	<div id="a_message" class="alert alert-warning">
 		{{#each a_message}}
-		{{this}}
+		<p>{{this}}</p>
 		{{/each}}
-
 	</div>
 </template>
 
-<template name="club_li">
-	<tr>
-		<td>{{ clubname }}</td>
-		<td>{{ founder }}</td>
-		<td>{{ members }}</td>
-	</tr>
-</template>
+
 
 <template name="create">
-	<form>
-		<input type="text" id="f_name" placeholder="Your Name">
-		<input type="text" id="f_clubname" placeholder="Club Name">
-		<input type="text" id="f_netid" placeholder="NYU Net ID">
-		<input type="text" id="f_nationality" placeholder="Nationality">
-		<textarea id="f_description" placeholder="Description"></textarea>
-		<button id="create_submit">Submit</button>
+
+<h3 style="text-align:center">Post a club that you want to start</h3>
+
+	<form role="form" style="width:300px;">
+		  <div class="form-group">
+		    <label for="f_name">Your Name</label>
+		    <input type="text" class="form-control" id="f_name" placeholder="Name">
+		  </div>
+
+		  <div class="form-group">
+		    <label for="f_clubname">Club Name</label>
+		    <input type="text" id="f_clubname" class="form-control" placeholder="Club Name">
+		  </div>
+
+
+		
+		<div class="form-group">
+			<label for="f_netid">NYU Email</label>
+			<div class="input-group">
+		  <input type="text" class="form-control" id="f_netid" placeholder="Net ID">
+		  <span class="input-group-addon">@nyu.edu</span>
+		</div>
+		</div>
+
+		<div class="form-group">
+		    <label for="f_nationality">Your Nationality</label>
+		    <input type="text" id="f_nationality" class="form-control" placeholder="Nationality">
+		</div>
+
+		<div class="form-group">
+		    <label for="f_description">Describe the club:</label>
+		    <textarea id="f_description" class="form-control" placeholder="Description" style="width: 450px;height: 125px;"></textarea>
+		</div>		
+		
+		{{#constant}}<button id="create_submit" class="btn btn-primary">Submit</button>{{/constant}}
 	</form>
 
-	<div id="notification">
+
+	{{#if message}}
+	<div id="notification" class="alert alert-danger" style="margin-top:25px;width:450px;">
 		{{#each message}}
-			{{this}}
+			<p>{{this}}</p>
 		{{/each}}
 	</div>
+	{{/if}}
+	
 </template>
 
 <template name="club">

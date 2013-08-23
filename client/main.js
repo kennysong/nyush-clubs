@@ -1,5 +1,9 @@
-Template.browse.clubs = function () {
-  return Clubs.find({}, {sort: {members: -1, clubname: 1}});
+Template.browse.first_clubs = function () {
+  return Clubs.find({}, {sort: {members: -1, clubname: 1}, limit: 3});
+}
+
+Template.browse.last_clubs = function () {
+  return Clubs.find({}, {sort: {members: -1, clubname: 1}, skip: 3});
 }
 
 Template.club.club = function() {
@@ -31,6 +35,7 @@ Template.club.events({
   }
 })
 
+
 Template.add.events({
   'click #a_submit' : function() {
     event.preventDefault();
@@ -61,7 +66,7 @@ Template.add.events({
     if (a_errors.length != 0) {
       Session.set('a_message', a_errors);
     } else {
-      Session.set('a_message', ['Success!']);
+      Session.set('a_message', '')
       
       var url = Session.get('club');
       var club = Clubs.findOne({'url':url});
@@ -71,13 +76,6 @@ Template.add.events({
       if (!(Users.findOne({'netid':a_netid}))) {
         Users.insert({'name':a_name, 'netid':a_netid, 'nationality':a_nationality});
       }
-
-      // var club = {'founder':f_name, 'clubname':f_clubname, 'netid':f_netid, 'url':url,
-      //             'description':f_description, 'members':1, 'member_list':[f_netid]};
-      // Clubs.insert(club);
-
-      // var user = {'netid':f_netid, 'name':f_name, 'nationality':f_nationality}
-      // Users.insert(user);
 
     }
 
@@ -96,6 +94,11 @@ Template.add.club = function() {
 
 Template.create.message = function () {
   return Session.get('message');
+}
+
+Template.create.rendered = function() {
+  var nats = Nationalities.findOne()['nationalities'];
+  $('#f_nationality').typeahead({source: nats}); 
 }
 
 Template.create.events({
@@ -142,10 +145,11 @@ Template.create.events({
 
     if (errors.length != 0) {
       Session.set('message', errors);
+      $('html, body').animate({scrollTop:$(document).height()}, 'slow');
+
     } else {
       var url = f_clubname.replace(/\s+/g, '-').toLowerCase();
-
-      Session.set('message', ['Success!' + url]);
+      Session.set('message', null);
       
       var club = {'founder':f_name, 'clubname':f_clubname, 'netid':f_netid, 'url':url,
                   'description':f_description, 'members':1, 'member_list':[f_netid]};
@@ -153,6 +157,9 @@ Template.create.events({
 
       var user = {'netid':f_netid, 'name':f_name, 'nationality':f_nationality}
       Users.insert(user);
+
+      $('#create_submit').text('Success! Redirecting...');
+      $('#create_submit').prop('disabled', true);
 
     }
 
