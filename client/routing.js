@@ -18,10 +18,12 @@ Meteor.Router.add(
       return 'how'
     },
     '/club/:url' : function(url) {
+        Session.set("activeNav", null);
         Session.set('club', url);
         return 'club'; 
       },
       '/add/:url' : function(url) {
+        Session.set("activeNav", null);
       	Session.set('club', url);
         return 'add'; 
       },

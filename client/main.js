@@ -96,9 +96,17 @@ Template.add.events({
       $('#a_submit').prop('disabled', true);
 
       setTimeout(function(){Meteor.Router.to('/club/'+url)}, 2000);
-
     }
 
+  },
+
+  'blur #a_netid': function() {
+    var netid = $('#a_netid').val();
+    var user = Users.findOne({'netid':netid});
+    if (user) {
+      $('#a_name').val(user.name);
+      $('#a_nationality').val(user.nationality);
+    }
   }
 })
 
@@ -233,6 +241,8 @@ Template.create.events({
         Session.set('share_message', [url])
       }
 
+      Session.set("activeNav", null);
+
       setTimeout(function(){Meteor.Router.to('/club/'+url)}, 2000);
 
     }
@@ -248,6 +258,15 @@ Template.create.events({
     } else {
       $('#f_tag2').addClass('tagged');
       $('#f_tag2').show();
+    }
+  },
+
+  'blur #f_netid': function() {
+    var netid = $('#f_netid').val();
+    var user = Users.findOne({'netid':netid});
+    if (user) {
+      $('#f_name').val(user.name);
+      $('#f_nationality').val(user.nationality);
     }
   }
 });
