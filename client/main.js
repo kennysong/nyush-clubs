@@ -60,10 +60,17 @@ Template.add.events({
     }
 
     if (a_netid == '') {
-      a_errors.push('Please enter a Net ID.');
+      a_errors.push('Please enter yyyyyyyyyyyyyyyyour Net ID.');
     } else if (a_netid.length > 100) {
       a_errors.push('Net ID must be under 100 characters.');
-    }      
+    } else {
+      var url = Session.get('club');
+      var club = Clubs.findOne({'url':url});
+      var member_list = club.member_list;
+      if (member_list.indexOf(a_netid) != -1) {
+        a_errors.push("You're already a member of this club!");
+      }
+    }    
 
     if (a_nationality == '') {
       a_errors.push('Please enter your nationality.');
@@ -156,7 +163,7 @@ Template.create.events({
     }
 
     if (f_netid == '') {
-      errors.push('Please enter a Net ID.');
+      errors.push('Please enter your Net ID.');
     } else if (f_netid.length > 100) {
       errors.push('Net ID must be under 100 characters.');
     }      
@@ -168,7 +175,7 @@ Template.create.events({
     }      
 
     if (f_description == '') {
-      errors.push('Please enter a description.');
+      errors.push('Please enter a club description.');
     } else if (f_description.length > 100) {
       errors.push('Description must be under 100 characters.');
     }
