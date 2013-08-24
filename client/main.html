@@ -102,8 +102,9 @@
 		  <span class="input-group-addon">@nyu.edu</span>
 		</div>
 		</div>
-
+		{{#isolate}}
 		<button id="a_submit" class="btn btn-primary">Submit</button>
+		{{/isolate}}
 	</form>
 
 	{{#isolate}}
@@ -243,6 +244,7 @@
 	{{/if}}
 	{{/isolate}}
 
+
 </template>
 
 <template name="club">
@@ -268,7 +270,7 @@
 
 		<button id="join" class="btn btn-info" style="margin: 20px 0px 30px">I'm interested!</button>
 
-		<p style="margin: 10px 0px 20px;"><span style="color:gray;">There {{#if greater members "1"}}are{{else}}is{{/if}}</span> {{ members }} <span style="color:gray">other member{{#if greater members "1"}}s{{/if}}.</span></p>
+		<p style="margin: 10px 0px 20px;"><span style="color:gray;">There {{#if greater members "1"}}are{{else}}is{{/if}}</span> {{ members }} <span style="color:gray"> member{{#if greater members "1"}}s{{/if}} in this club.</span></p>
 		
 		<hr>
 

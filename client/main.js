@@ -16,7 +16,7 @@ Template.club.share_message = function() {
   var current_url = window.location.href.split('/').pop();
   var session_urls = Session.get('share_message');
   if (session_urls && session_urls.length != 0 && session_urls.indexOf(current_url) > -1) {
-    return '<div class="alert alert-success" style="width: 365px;margin: 25px auto -10px auto;">Share <a href="/club/'+current_url+'">this link</a> with your friends to let them sign up!</div>'
+    return '<div class="alert alert-success" style="width: 355px;margin: 25px auto -10px auto;">Share <a href="/club/'+current_url+'">this link</a> with your friends to let them sign up!</div>'
   }
 }
 
@@ -60,7 +60,7 @@ Template.add.events({
     }
 
     if (a_netid == '') {
-      a_errors.push('Please enter yyyyyyyyyyyyyyyyour Net ID.');
+      a_errors.push('Please enter your Net ID.');
     } else if (a_netid.length > 100) {
       a_errors.push('Net ID must be under 100 characters.');
     } else {
@@ -92,6 +92,11 @@ Template.add.events({
         Users.insert({'name':a_name, 'netid':a_netid, 'nationality':a_nationality});
       }
 
+      $('#a_submit').text('Success! Redirecting...');
+      $('#a_submit').prop('disabled', true);
+
+      setTimeout(function(){Meteor.Router.to('/club/'+url)}, 2000);
+
     }
 
   }
@@ -112,8 +117,19 @@ Template.create.message = function () {
 }
 
 Template.create.rendered = function() {
-  var nats = Nationalities.findOne()['nationalities'];
-  $('#f_nationality').typeahead({source: nats}); 
+  // HACK //
+  setTimeout(function(){
+    var nats = Nationalities.findOne()['nationalities'];
+    $('#f_nationality').typeahead({source: nats}); 
+  }, 1500);
+}
+
+Template.add.rendered = function() {
+  // HACK //
+  setTimeout(function(){
+    var nats = Nationalities.findOne()['nationalities'];
+    $('#a_nationality').typeahead({source: nats}); 
+  }, 1500);
 }
 
 Template.browse.greater = function(a, b) {
@@ -131,7 +147,6 @@ Template.club.greater = function(a, b) {
     return false;
   }
 }
-
 
 Template.create.events({
   'click #create_submit' : function () {
