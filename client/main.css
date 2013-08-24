@@ -3,6 +3,7 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
   font-family: 'Lato', 'Helvetica', Arial !important;
+  background: url('/img/blizzard.png');
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -53,6 +54,21 @@ td {
 
 table, form {
   font-family: 'Oxygen' !important;
+}
+
+.label {
+  display: inline-block !important;
+  margin-bottom: 2.5px;
+  margin-top: 2.5px;
+}
+
+.home {
+  color: rgb(60, 60, 60) !important;
+}
+
+.home:hover{
+  text-decoration: none !important;
+  color: rgb(60, 60, 60) !important;
 }
 
 .nav-pills > li > a{

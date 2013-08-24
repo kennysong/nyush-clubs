@@ -16,7 +16,7 @@
 				<li class="{{activeNav 'create'}}"><a href="/create">Create</a></li>
 				<li class="{{activeNav 'how'}}"><a href="/how">How?</a></li>
 			</ul>
-			<h3 style="margin-bottom:5px !important;"><img src="/img/logo.jpg" style="width:85px;"><span style="position: relative;top: 31px;left: 13px;color: rgb(60, 60, 60);font-size: 24px;font-weight: 300;font-family: 'Lato'">CLUBS</span></h3>
+			<h3 style="margin-bottom:5px !important;"><a href="/" class="home"><img src="/img/logo.jpg" style="width:85px;"></a><a href="/" class="home" style="position: relative;top: 31px;left: 13px;color: rgb(60, 60, 60);font-size: 24px;font-weight: 300;font-family: 'Lato'">CLUBS</a></h3>
 		</div>
 
 
@@ -34,19 +34,19 @@
 		<tbody>
 			{{#each first_clubs}}
 				<tr class="top-tr">
-					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">
+					<td style="text-align:center;border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);width: 350px;">
 						<a href="/club/{{url}}" style="font-size:18px;">{{ clubname }}</a>
 					</td>
-					<td>
+					<td style="text-align:center;border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);width: 250px;">
 						{{#each tags}}
-							{{this}}
+							<span class="label label-default" style="font-size:14px;">{{this}}</span>
 						{{/each}}	
 					</td>
-					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">
+					<td style="text-align:center;border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);width: 250px">
 						<span style="font-weight:300;color:gray;">posted by </span>
-						{{ founder }}
+						<a href="/user/{{netid}}">{{ founder }}</a>
 					</td>
-					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">
+					<td style="text-align:center;border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);width: 150px">
 						{{ members }}
 						<span style="font-weight:300;color:gray;"> member{{#if greater members "1"}}s{{/if}}</span>
 					</td>
@@ -55,16 +55,19 @@
 
 			{{#each last_clubs}}
 				<tr>
-					<td><a href="/club/{{url}}" style="font-size:18px;">{{ clubname }}</a></td>
-					<td>
+					<td style="text-align:center;"><a href="/club/{{url}}" style="font-size:18px;width:350px;">{{ clubname }}</a></td>
+					<td style="text-align:center;width:250px">
 						{{#each tags}}
-							{{this}}
+							<span class="label label-default" style="font-size:14px;">{{this}}</span>
 						{{/each}}	
 					</td>
-					<td><span style="font-weight:300;color:gray;">posted by </span>{{ founder }}</td>
-					<td>
+					<td style="text-align:center;">
+						<span style="font-weight:300;color:gray;width:200px">posted by </span>
+						<a href="/user/{{netid}}">{{ founder }}</a>
+					</td>
+					<td style="text-align:center;">
 						{{ members }}
-						<span style="font-weight:300;color:gray;"> member{{#if greater members "1"}}s{{/if}}</span>
+						<span style="font-weight:300;color:gray;width:200px"> member{{#if greater members "1"}}s{{/if}}</span>
 					</td>
 				</tr>
 			{{/each}}
@@ -122,12 +125,12 @@
 
 		<div class="form-group">
 		    <label for="f_description">Describe the club:</label>
-		    <textarea id="f_description" class="form-control" placeholder="Description" style="width: 450px;height: 125px;"></textarea>
+		    <textarea id="f_description" class="form-control" placeholder="Description" style="width: 650px;height: 125px;"></textarea>
 		</div>
 
 		<div class="form-group">
 		    <label for="f_tag1">Tag its categories:</label>
-		    <select id="f_tag1" class="form-control tagged" style="width:180px">
+		    <select id="f_tag1" class="form-control tagged" style="width:190px">
 				<option>Academic</option>
 				<option>Art</option>
 				<option>Athletics</option>
@@ -152,7 +155,7 @@
 				<option>Other</option>
 			</select>
 
-			<select id="f_tag2" class="form-control" style="margin-top:5px;display:none;width:180px">
+			<select id="f_tag2" class="form-control" style="margin-top:5px;display:none;width:190px">
 				<option>Academic</option>
 				<option>Art</option>
 				<option>Athletics</option>
@@ -176,7 +179,7 @@
 				<option>Theater/Drama</option>
 				<option>Other</option>
 			</select>
-			<select id="f_tag3" class="form-control" style="margin-top:5px;display:none;width:180px">
+			<select id="f_tag3" class="form-control" style="margin-top:5px;display:none;width:190px">
 				<option>Academic</option>
 				<option>Art</option>
 				<option>Athletics</option>
@@ -222,16 +225,33 @@
 <template name="club">
 	{{{share_message}}}
 	{{#with club}}
-		<h3 style="text-align:center">{{ clubname }}</h3>
-		<p>posted by {{ founder }}</p>s
-		<p>Description: {{ description }}</p>
-		<p>Members: {{ members }}</p>
+		<h3 style="text-align:center;margin-bottom:12px !important">{{ clubname }}</h3>
+		<p style="text-align:center"><span style="font-weight:300;color:gray;">posted by</span> <a href="/user/{{netid}}">{{ founder }}</a></p>
+
+		<div class="panel panel-primary" style="margin-top: 40px;">
+			<div class="panel-heading"><span style="font-weight:300;color:white">Description:</span></div>
+			  <div class="panel-body">
+			  	{{ description }}
+			  </div>
+			</div>
+		</div>
+
+		<div style="margin: 25px 0px -5px;float:right;">
+			<span style="font-weight:300;color:gray;font-size:16px;">Tags: </span>
+			{{#each tags}}
+			<span class="label label-default" style="font-size:14px;">{{this}}</span>
+			{{/each}}
+		</div>
+
+		<button id="join" class="btn btn-info" style="margin: 20px 0px 30px">I'm interested!</button>
+
+		<p style="margin: 10px 0px 20px;"><span style="color:gray;">There {{#if greater members "1"}}are{{else}}is{{/if}}</span> {{ members }} <span style="color:gray">other member{{#if greater members "1"}}s{{/if}}.</span></p>
 		
-		<button id="join">I'm interested!</button>
+		<hr>
 
 		{{#each club_members}}
-			<div>
-				<h4>{{ name }}</h4>
+			<div style="display:inline-block;width:30%;margin-right:25px;">
+				<h4><a href="/user/{{netid}}">{{ name }}</a></h4>
 				<p>{{ netid }}@nyu.edu</p>
 				<p>{{ nationality }}</p>
 			</div>

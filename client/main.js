@@ -117,6 +117,15 @@ Template.browse.greater = function(a, b) {
   }
 }
 
+Template.club.greater = function(a, b) {
+  if(a > b) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
 Template.create.events({
   'click #create_submit' : function () {
     event.preventDefault();
