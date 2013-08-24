@@ -12,6 +12,14 @@ Template.club.club = function() {
   return club
 }
 
+Template.club.share_message = function() {
+  var current_url = window.location.href.split('/').pop();
+  var session_urls = Session.get('share_message');
+  if (session_urls && session_urls.length != 0 && session_urls.indexOf(current_url) > -1) {
+    return '<div class="alert alert-success" style="width: 365px;margin: 25px auto -10px auto;">Share <a href="/club/'+current_url+'">this link</a> with your friends to let them sign up!</div>'
+  }
+}
+
 Template.club.club_members = function() {
   var url = Session.get('club');
   var club = Clubs.findOne({'url':url});
@@ -131,7 +139,12 @@ Template.create.events({
       errors.push('Please enter a club name.');
     } else if (f_clubname.length > 100) {
       errors.push('Club name must be under 100 characters.');
-    }      
+    } else {
+      var url = f_clubname.replace(/\s+/g, '-').toLowerCase();
+      if (Clubs.findOne({'url':url})) {
+        errors.push('That club already exists. <a href="/club/'+url+'">Check it out!</a>')
+      }
+    }
 
     if (f_netid == '') {
       errors.push('Please enter a Net ID.');
@@ -154,11 +167,15 @@ Template.create.events({
     var tags = [$('#f_tag1').val()];
 
     if ($('#f_tag2').hasClass('tagged')) {
-        tags.push($('#f_tag2').val());
+        if (tags.indexOf($('#f_tag2').val()) == -1) {
+          tags.push($('#f_tag2').val());
+        }
     }
 
     if ($('#f_tag3').hasClass('tagged')) {
-        tags.push($('#f_tag3').val());
+      if (tags.indexOf($('#f_tag3').val()) == -1) {
+          tags.push($('#f_tag3').val());
+        }
     }
 
     if (errors.length != 0) {
@@ -178,6 +195,14 @@ Template.create.events({
 
       $('#create_submit').text('Success! Redirecting...');
       $('#create_submit').prop('disabled', true);
+
+      if (Session.get('share_message')) {
+        Session.set('share_message', Session.get('share_message').push(url));
+      } else {
+        Session.set('share_message', [url])
+      }
+
+      setTimeout(function(){Meteor.Router.to('/club/'+url)}, 2000);
 
     }
 

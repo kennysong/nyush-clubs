@@ -16,7 +16,7 @@
 				<li class="{{activeNav 'create'}}"><a href="/create">Create</a></li>
 				<li class="{{activeNav 'how'}}"><a href="/how">How?</a></li>
 			</ul>
-			<h3><img src="/img/logo.jpg" style="width:85px;"><span style="position: relative;top: 31px;left: 13px;color: rgb(60, 60, 60);font-size: 24px;font-weight: 300;font-family: 'Lato'">CLUBS</span></h3>
+			<h3 style="margin-bottom:5px !important;"><img src="/img/logo.jpg" style="width:85px;"><span style="position: relative;top: 31px;left: 13px;color: rgb(60, 60, 60);font-size: 24px;font-weight: 300;font-family: 'Lato'">CLUBS</span></h3>
 		</div>
 
 
@@ -35,22 +35,37 @@
 			{{#each first_clubs}}
 				<tr class="top-tr">
 					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">
-						<a href="/club/{{url}}">{{ clubname }}</a>
+						<a href="/club/{{url}}" style="font-size:18px;">{{ clubname }}</a>
+					</td>
+					<td>
+						{{#each tags}}
+							{{this}}
+						{{/each}}	
 					</td>
 					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">
+						<span style="font-weight:300;color:gray;">posted by </span>
 						{{ founder }}
 					</td>
 					<td style="border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);">
-						{{ members }} <span style="font-weight:300;color:gray;">members</span>
+						{{ members }}
+						<span style="font-weight:300;color:gray;"> member{{#if greater members "1"}}s{{/if}}</span>
 					</td>
 				</tr>
 			{{/each}}
 
 			{{#each last_clubs}}
 				<tr>
-					<td><a href="/club/{{url}}">{{ clubname }}</a></td>
-					<td>{{ founder }}</td>
-					<td>{{ members }} <span style="font-weight:300;color:gray;">member{{#if greater members "1"}}s{{/if}}</span></td>
+					<td><a href="/club/{{url}}" style="font-size:18px;">{{ clubname }}</a></td>
+					<td>
+						{{#each tags}}
+							{{this}}
+						{{/each}}	
+					</td>
+					<td><span style="font-weight:300;color:gray;">posted by </span>{{ founder }}</td>
+					<td>
+						{{ members }}
+						<span style="font-weight:300;color:gray;"> member{{#if greater members "1"}}s{{/if}}</span>
+					</td>
 				</tr>
 			{{/each}}
 		</tbody>
@@ -188,25 +203,27 @@
 
 			<button id="add_tag" class="btn btn-default" style="margin-top:5px;">Add Tag +</button>
 		</div>
-		
-		{{#constant}}<button id="create_submit" class="btn btn-primary">Submit</button>{{/constant}}
+
+		{{#isolate}}<button id="create_submit" class="btn btn-primary">Submit</button>{{/isolate}}
 	</form>
 
-
+	{{#isolate}}
 	{{#if message}}
 	<div id="notification" class="alert alert-danger" style="margin-top:25px;width:450px;">
 		{{#each message}}
-			<p>{{this}}</p>
+			<p>{{{this}}}</p>
 		{{/each}}
 	</div>
 	{{/if}}
-	
+	{{/isolate}}
+
 </template>
 
 <template name="club">
+	{{{share_message}}}
 	{{#with club}}
-		<h3>{{ clubname }}</h3>
-		<p>posted by {{ founder }}</p>
+		<h3 style="text-align:center">{{ clubname }}</h3>
+		<p>posted by {{ founder }}</p>s
 		<p>Description: {{ description }}</p>
 		<p>Members: {{ members }}</p>
 		
