@@ -262,8 +262,6 @@ Template.create.events({
 
     if (f_description == '') {
       errors.push('Please enter a club description.');
-    } else if (f_description.length > 100) {
-      errors.push('Description must be under 100 characters.');
     }
 
     var tags = [$('#f_tag1').val()];
