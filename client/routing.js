@@ -17,6 +17,10 @@ Meteor.Router.add(
       Session.set("activeNav", Meteor.Router.page());
       return 'how'
     },
+    '/new' : function() {
+      Session.set("activeNav", 'browse');
+      return 'new'
+    },
     '/club/:url' : function(url) {
         Session.set("activeNav", null);
         Session.set('club', url);

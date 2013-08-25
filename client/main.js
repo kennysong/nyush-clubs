@@ -16,7 +16,21 @@ Template.browse.last_clubs = function () {
   return Clubs.find({}, {sort: {members: -1, clubname: 1}, skip: 3});
 }
 
+Template.new.first_clubs = function () {
+  return Clubs.find({}, {sort: {timestamp: -1, clubname: 1}, limit: 3});
+}
+
+Template.new.last_clubs = function () {
+  return Clubs.find({}, {sort: {timestamp: -1, clubname: 1}, skip: 3});
+}
+
 Template.browse.rendered = function () {
+  $('a').tooltip();
+  $('#search').tooltip();
+  $('.btn-group').button()
+}
+
+Template.new.rendered = function () {
   $('a').tooltip();
   $('#search').tooltip();
   $('.btn-group').button()
@@ -33,6 +47,20 @@ Template.browse.events = {
 
   'click #new': function() {
     Meteor.Router.to('/new');
+  }
+}
+
+Template.new.events = {
+  'focus #search': function() {
+    $("#search").animate({width: '225px'}, 400);
+  },
+
+  'blur #search': function() {
+    $("#search").animate({width: '175px'}, 400);
+  },
+
+  'click #popular': function() {
+    Meteor.Router.to('/');
   }
 }
 
@@ -192,6 +220,14 @@ Template.browse.greater = function(a, b) {
   }
 }
 
+Template.new.greater = function(a, b) {
+  if(a > b) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 Template.club.greater = function(a, b) {
   if(a > b) {
     return true;
@@ -289,6 +325,8 @@ Template.create.events({
       var club = {'founder':f_name, 'clubname':f_clubname, 'netid':f_netid, 'url':url,
                   'description':f_description, 'members':1, 'member_list':[f_netid], 'tags':tags};
       Clubs.insert(club);
+
+      Meteor.call('add_timestamp', url)
 
       var user = {'netid':f_netid, 'name':f_name, 'nationality':f_nationality}
       Users.insert(user);

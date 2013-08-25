@@ -7,3 +7,9 @@ Meteor.startup(function () {
     }
 });
 
+Meteor.methods({
+	'add_timestamp': function(url) {
+		var club = Clubs.findOne({'url':url});
+		Clubs.update(club._id, {$set: {'timestamp': (new Date()).getTime()}});	
+	}
+})
