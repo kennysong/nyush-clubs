@@ -34,6 +34,20 @@
 
 <template name="browse">
 	<h3 style="text-align:center">Browse our list of potential clubs</h3>
+
+	<div style="float:left"><input id="search" type="text" class="form-control input-sm" placeholder="Search" style="width:175px;margin-bottom: 20px;" data-toggle="tooltip" title="Search coming soon!" data-placement="left"></div>
+	<div style="float:right;">
+		<div class="btn-group" data-toggle="buttons">
+		  <label class="btn btn-default btn-sm active">
+		    <input type="radio" name="options" id="popularid"> Popular
+		  </label>
+		  <label class="btn btn-default btn-sm" id="new">
+		    <input type="radio" name="options" id="newid"> New
+		  </label>
+		</div>
+	</div>
+
+
 	<table class="table table-hover">
 		<tbody>
 			{{#each first_clubs}}
@@ -288,6 +302,8 @@
 			</div>
 		{{/each}}
 
+<!-- 		<div id="my-disqus">
+        <div id="disqus_thread"></div> -->
 	{{/with}}
 </template>
 

@@ -1,3 +1,13 @@
+// Meteor.startup(function(){
+//  $(function () {
+//     var el = document.createElement("script");
+//     el.src = "/disqus.js";
+//     el.type = 'text/javascript';
+//     $("#my-disqus").prepend(el);
+
+// });
+// })
+
 Template.browse.first_clubs = function () {
   return Clubs.find({}, {sort: {members: -1, clubname: 1}, limit: 3});
 }
@@ -8,6 +18,22 @@ Template.browse.last_clubs = function () {
 
 Template.browse.rendered = function () {
   $('a').tooltip();
+  $('#search').tooltip();
+  $('.btn-group').button()
+}
+
+Template.browse.events = {
+  'focus #search': function() {
+    $("#search").animate({width: '225px'}, 400);
+  },
+
+  'blur #search': function() {
+    $("#search").animate({width: '175px'}, 400);
+  },
+
+  'click #new': function() {
+    Meteor.Router.to('/new');
+  }
 }
 
 Template.club.club = function() {
@@ -182,6 +208,16 @@ Template.add.greater = function(a, b) {
   }
 }
 
+
+// Template.club.rendered = function () {
+//     var disqus_shortname = 'clubsatnyush';
+
+//     (function() {
+//         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+//         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+//         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+//     })();
+// }
 
 Template.create.events({
   'click #create_submit' : function () {
