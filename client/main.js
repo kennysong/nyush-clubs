@@ -6,6 +6,10 @@ Template.browse.last_clubs = function () {
   return Clubs.find({}, {sort: {members: -1, clubname: 1}, skip: 3});
 }
 
+Template.browse.rendered = function () {
+  $('a').tooltip();
+}
+
 Template.club.club = function() {
   var url = Session.get('club');
   var club = Clubs.findOne({'url':url})
@@ -15,9 +19,11 @@ Template.club.club = function() {
 Template.club.share_message = function() {
   var current_url = window.location.href.split('/').pop();
   var session_urls = Session.get('share_message');
-  if (session_urls && session_urls.length != 0 && session_urls.indexOf(current_url) > -1) {
-    return '<div class="alert alert-success" style="width: 355px;margin: 25px auto -10px auto;">Share <a href="/club/'+current_url+'">this link</a> with your friends to let them sign up!</div>'
+  if (session_urls) {
+    if (session_urls.length != 0 && session_urls.indexOf(current_url) > -1){
+      return '<div class="alert alert-success" id="alert_div" data-position="bottom" data-toggle="tooltip" data-title="Copied to clipboard!" style="width: 355px;margin: 25px auto -10px auto;">Share <a id="share_link" href="/club/'+current_url+'">this link</a> with your friends to let them sign up!</div>'
   }
+}
 }
 
 Template.club.club_members = function() {
@@ -42,6 +48,18 @@ Template.club.events({
     Meteor.Router.to('/add/'+url);
   }
 })
+
+Template.club.rendered = function() {
+    $('a').tooltip();
+
+    $('a#share_link').zclip({
+      path:'/ZeroClipboard.swf',
+      copy: window.location.href,
+      afterCopy: function() {
+        $('#alert_div').tooltip('show')
+      }
+  });
+}
 
 
 Template.add.events({

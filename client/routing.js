@@ -21,11 +21,14 @@ Meteor.Router.add(
         Session.set("activeNav", null);
         Session.set('club', url);
         return 'club'; 
-      },
-      '/add/:url' : function(url) {
+    },
+    '/add/:url' : function(url) {
         Session.set("activeNav", null);
       	Session.set('club', url);
         return 'add'; 
-      },
+    },
+    '/user/:netid' : function(netid) {
+      return 'user'
+    },
     '*' : 'error'
 });

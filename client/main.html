@@ -4,6 +4,7 @@
   <link href="/css/bootstrap.css" rel="stylesheet">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   <script src="/js/typeahead.min.js"></script>
+  <script src="/js/jquery.zclip.min.js"></script>
   <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300|Lato:100,300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
 
   <link rel="shortcut icon" href="/img/favicon.jpg" type="image/jpg">
@@ -13,11 +14,13 @@
 <body>
 	<div class="container">
 		<div class="header">
+			{{#isolate}}
 			<ul class="nav nav-pills pull-right"  style="margin-top:50px;">
 				<li class="{{activeNav 'browse'}}"><a href="/">Browse</a></li>
 				<li class="{{activeNav 'create'}}"><a href="/create">Create</a></li>
 				<li class="{{activeNav 'how'}}"><a href="/how">How?</a></li>
 			</ul>
+			{{/isolate}}
 			<h3 style="margin-bottom:5px !important;"><a href="/" class="home"><img src="/img/logo.jpg" style="width:85px;"></a><a href="/" class="home" style="position: relative;top: 31px;left: 13px;color: rgb(60, 60, 60);font-size: 24px;font-weight: 300;font-family: 'Lato'">CLUBS</a></h3>
 		</div>
 
@@ -31,7 +34,6 @@
 
 <template name="browse">
 	<h3 style="text-align:center">Browse our list of potential clubs</h3>
-
 	<table class="table table-hover">
 		<tbody>
 			{{#each first_clubs}}
@@ -46,7 +48,7 @@
 					</td>
 					<td style="text-align:center;border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);width: 250px">
 						<span style="font-weight:300;color:gray;">posted by </span>
-						<a href="/user/{{netid}}">{{ founder }}</a>
+						<a href="/user/{{netid}}" data-toggle="tooltip" title="User pages coming soon!">{{ founder }}</a>
 					</td>
 					<td style="text-align:center;border-top:1px solid rgb(161, 213, 161);border-bottom: 1px solid rgb(161, 213, 161);width: 150px">
 						{{ members }}
@@ -65,7 +67,7 @@
 					</td>
 					<td style="text-align:center;">
 						<span style="font-weight:300;color:gray;width:200px">posted by </span>
-						<a href="/user/{{netid}}">{{ founder }}</a>
+						<a href="/user/{{netid}}" data-toggle="tooltip" title="User pages coming soon!">{{ founder }}</a>
 					</td>
 					<td style="text-align:center;">
 						{{ members }}
@@ -255,7 +257,7 @@
 	{{{share_message}}}
 	{{#with club}}
 		<h3 style="text-align:center;margin-bottom:12px !important">{{ clubname }}</h3>
-		<p style="text-align:center"><span style="font-weight:300;color:gray;">posted by</span> <a href="/user/{{netid}}">{{ founder }}</a></p>
+		<p style="text-align:center"><span style="font-weight:300;color:gray;">posted by</span> <a href="/user/{{netid}}" data-toggle="tooltip" title="User pages coming soon!">{{ founder }}</a></p>
 
 		<div class="panel panel-primary" style="margin-top: 40px;">
 			<div class="panel-heading"><span style="font-weight:300;color:white">Description:</span></div>
@@ -280,7 +282,7 @@
 
 		{{#each club_members}}
 			<div style="display:inline-block;width:30%;margin-right:25px;">
-				<h4><a href="/user/{{netid}}">{{ name }}</a></h4>
+				<h4><a href="/user/{{netid}}" data-toggle="tooltip" title="User pages coming soon!">{{ name }}</a></h4>
 				<p>{{ netid }}@nyu.edu</p>
 				<p>{{ nationality }}</p>
 			</div>
@@ -289,5 +291,10 @@
 	{{/with}}
 </template>
 
+<template name="user">
+	<h3 style="text-align:center;">User pages coming soon!</h3>
+</template>
 
-
+<template name="error">
+	<h3 style="text-align:center;">Error: Page not found.</h3>
+</template>
