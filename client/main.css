@@ -60,6 +60,7 @@ table, form {
   display: inline-block !important;
   margin-bottom: 2.5px;
   margin-top: 2.5px;
+  font-family: 'Lato', 'Arial' !important;
 }
 
 .home {
