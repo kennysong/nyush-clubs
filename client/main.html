@@ -308,7 +308,8 @@
 <template name="how">
 	<div style="font-family: 'Oxygen', Arial !important;">
 	<h4 style="">What is the process for making a club?</h4>
-	<p style="margin-top: 20px;"><strong>Step 1</strong> is completing an application for the club. The founding member requirements for this are as follows: 4 NYU students (minimum 2 from NYU Shanghai) that includes 2 nationalities. You must also write a Statement of Club Actitivies and Goals, which outlines activities the club will engage in and what the club hopes to accomplish through them. This is similar to the description box when posting a club here.</p>
+	<p style="margin-top: 20px;">You can <a href="http://shanghai.nyu.edu/resources/involvement/ncd">click here</a> for the official NYUSH NCD policies. Below is a condensed version.</p>
+	<p style="margin-top: 15px;"><strong>Step 1</strong> is completing an application for the club. The founding member requirements for this are as follows: 4 NYU students (minimum 2 from NYU Shanghai) that includes 2 nationalities. You must also write a Statement of Club Actitivies and Goals, which outlines activities the club will engage in and what the club hopes to accomplish through them. This is similar to the description box when posting a club here.</p>
 	<p style="margin-top: 15px;"><strong>Step 2</strong> takes place after the club application is approved by the Student Government. Club founders will attend the New Club Development workshop and complete a series of tasks to create the club. This includes writing a mission statement (during the Mission Statement Workshop), drafting a club constitution, electing club officers, and planning club activities. There will be separate deadlines for the above tasks, and at this point there must be 10 NYU Shanghai students as members. Membership must be non-exlusive.
 	</p>
 
@@ -320,10 +321,6 @@
 	<p style="margin-top: 15px;">We found that there was no easy way to find other people who have similar interests, so we built this website to help the NYUSH students discover, create, and recruit members for potential clubs &amp; student organizations.</p>
 
 </div>
-</template>
-
-<template name="user">
-	<h3 style="text-align:center;">User pages coming soon!</h3>
 </template>
 
 <template name="error">
@@ -389,4 +386,42 @@
 			{{/each}}
 		</tbody>
 	</table>
+</template>
+
+<template name="user">
+	{{#with user_obj}}
+	<div style="font-family:'Oxygen', Arial !important">
+		<h3 style="text-align:center;margin-bottom: 15px !important;">{{name}}</h3>
+		<p style="text-align:center;color: rgb(43, 43, 43);font-weight: 300;">{{ nationality }}</p>
+		<p style="text-align:center;font-weight: 300;"><a href="mailto: {{ netid }}@nyu.edu">{{ netid }}@nyu.edu</a></p>
+
+		<h5 style="font-family:'Oxygen', Arial !important; font-size:22px;color: rgb(75, 74, 74);margin-top: 70px;text-decoration: underline;">Founded</h5>
+		{{#each found_club}}
+			<div style="display:inline-block;width:30%;margin-right:15px;">
+				<h4><a href="/club/{{url}}">{{ clubname }}</a></h4>
+				<p>
+					{{#each tags}}
+						<span class="label label-default" style="font-size:14px;">{{this}}</span>
+					{{/each}}
+				</p>
+				<p>{{members}} <span style="font-weight:300;color:gray">member{{#if greater members "1"}}s{{/if}}</span></p>
+			</div>
+		{{/each}}
+		
+		<h5 style="font-family:'Oxygen', Arial !important; font-size:22px;color: rgb(75, 74, 74);margin-top: 70px;text-decoration: underline;">Member of</h5>
+		{{#each join_club}}
+			<div style="display:inline-block;width:30%;margin-right:15px;">
+				<h4><a href="/club/{{url}}">{{ clubname }}</a></h4>
+				<p>
+					{{#each tags}}
+						<span class="label label-default" style="font-size:14px;">{{this}}</span>
+					{{/each}}
+				</p>
+				<p>{{members}} <span style="font-weight:300;color:gray">member{{#if greater members "1"}}s{{/if}}</span></p>
+			</div>
+		{{/each}}
+
+	</div>
+	{{/with}}
+
 </template>

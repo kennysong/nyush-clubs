@@ -8,6 +8,25 @@
 // });
 // })
 
+function arr_obj_diff(a,b) {
+  var diff = []
+  
+  for (i=0;i<a.length;i++) {
+    var skip = false;
+    var e = a[i];
+    for (j=0;j<b.length;j++) {
+      var f = b[j];
+      if (JSON.stringify(f) === JSON.stringify(e)) {
+        skip = true;
+      }
+    }
+    if (!skip) {
+      diff.push(e);
+    }
+  }
+  return diff
+}
+
 Template.browse.first_clubs = function () {
   return Clubs.find({}, {sort: {members: -1, clubname: 1}, limit: 3});
 }
@@ -228,6 +247,14 @@ Template.new.greater = function(a, b) {
   }
 }
 
+Template.user.greater = function(a, b) {
+  if(a > b) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 Template.club.greater = function(a, b) {
   if(a > b) {
     return true;
@@ -278,7 +305,8 @@ Template.create.events({
     } else if (f_clubname.length > 100) {
       errors.push('Club name must be under 100 characters.');
     } else {
-      var url = f_clubname.replace(/\s+/g, '-').toLowerCase();
+      var lc = f_clubname.replace(/\s+/g, '-').toLowerCase();
+      var url = lc.replace(/[^a-zA-Z0-9-_]/g, '');
       if (Clubs.findOne({'url':url})) {
         errors.push('That club already exists. <a href="/club/'+url+'">Check it out!</a>')
       }
@@ -319,7 +347,8 @@ Template.create.events({
       $('html, body').animate({scrollTop:$(document).height()}, 'slow');
 
     } else {
-      var url = f_clubname.replace(/\s+/g, '-').toLowerCase();
+      var lc = f_clubname.replace(/\s+/g, '-').toLowerCase();
+      var url = lc.replace(/[^a-zA-Z0-9-_]/g, '');
       Session.set('message', null);
       
       var club = {'founder':f_name, 'clubname':f_clubname, 'netid':f_netid, 'url':url,
@@ -370,3 +399,25 @@ Template.create.events({
   }
 });
 
+Template.user.user_obj = function() {
+  var netid = window.location.href.split('/').pop();
+
+  var user = Users.findOne({'netid':netid});
+  var found_club = Clubs.find({'netid':netid}).fetch();
+  var join_club = Clubs.find({'member_list': netid}).fetch();
+  var filt_join_club = arr_obj_diff(join_club, found_club);
+
+  console.log(found_club)
+  console.log(join_club)
+  console.log(filt_join_club)
+
+  if (!user) {
+    return null
+  }
+
+  var user_obj = {'found_club':found_club, 'join_club': filt_join_club, 'name':user.name, 
+              'netid':netid, 'nationality':user.nationality};
+
+  return user_obj
+
+}
