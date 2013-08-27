@@ -10,6 +10,11 @@ Meteor.Router.add(
       document.title = "NYU Shanghai Clubs";
       return 'browse'
     },
+    '/login' : function() {
+      Session.set("activeNav", Meteor.Router.page());
+      document.title = "Login with NYU Account";
+      return 'login'
+    },
     '/create' : function() {
       Session.set("activeNav", Meteor.Router.page());
       document.title = "Create a Club";

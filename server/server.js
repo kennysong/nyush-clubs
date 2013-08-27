@@ -13,3 +13,10 @@ Meteor.methods({
 		Clubs.update(club._id, {$set: {'timestamp': (new Date()).getTime()}});	
 	}
 })
+
+Accounts.validateNewUser(function (user) {
+    if(user.services.google.email.match(/example\.org$/)) {
+        return true;
+    }
+    throw new Meteor.Error(403, "You must sign in using a example.org account");
+});

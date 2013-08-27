@@ -421,3 +421,13 @@ Template.user.user_obj = function() {
   return user_obj
 
 }
+
+Template.login.events = {
+  'click #login': function() {
+      Meteor.loginWithGoogle({
+
+        }, function (err) {
+          alert(err);
+      });
+  }
+}
