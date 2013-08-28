@@ -1,12 +1,12 @@
-// Meteor.startup(function(){
-//  $(function () {
-//     var el = document.createElement("script");
-//     el.src = "/disqus.js";
-//     el.type = 'text/javascript';
-//     $("#my-disqus").prepend(el);
+Meteor.startup(function(){
+ $(function () {
+    var el = document.createElement("script");
+    el.src = "/disqus.js";
+    el.type = 'text/javascript';
+    $("#my-disqus").prepend(el);
 
-// });
-// })
+});
+})
 
 function utf8_encode (argString) {
   if (argString === null || typeof argString === "undefined") {
@@ -452,15 +452,15 @@ Template.add.greater = function(a, b) {
 }
 
 
-// Template.club.rendered = function () {
-//     var disqus_shortname = 'clubsatnyush';
+Template.club.rendered = function () {
+    var disqus_shortname = 'clubsatnyush';
 
-//     (function() {
-//         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-//         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-//         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-//     })();
-// }
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+}
 
 Template.create.events({
   'click #create_submit' : function () {

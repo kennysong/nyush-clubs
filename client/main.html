@@ -18,13 +18,13 @@
 		{{#if logged_in}}
 		<div class="header">
 			{{#isolate}}
-			<ul class="nav nav-pills pull-right"  style="margin-top:50px;">
+			<ul class="nav nav-pills pull-right" style="margin-bottom:15px;">
 				<li class="{{activeNav 'browse'}}"><a href="/">Browse</a></li>
 				<li class="{{activeNav 'create'}}"><a href="/create">Create</a></li>
 				<li class="{{activeNav 'how'}}"><a href="/how">How?</a></li>
 			</ul>
 			{{/isolate}}
-			<h3 style="margin-bottom:5px !important;"><a href="/" class="home"><img src="/img/logo.jpg" style="width:85px;"></a><a href="/" class="home" style="position: relative;top: 31px;left: 13px;color: rgb(60, 60, 60);font-size: 24px;font-weight: 300;font-family: 'Lato'">CLUBS</a></h3>
+			<h3 style="margin-bottom:15px !important;line-height: 40px;padding-bottom: 3px;"><a href="/" class="home" style="color: rgb(60, 60, 60);font-size: 24px;font-weight: 300;font-family: 'Lato'"><span style="display:inline-block;font-weight: 400;border-radius: 2px;background:#522E91; color: white;line-height: 34px;">&nbsp;NYUSH&nbsp;</span>&nbsp;CLUBS</a></h3>
 		</div>
 
 		{{ renderPage }}
@@ -32,8 +32,8 @@
 		{{else}}
 		<center>
 		<div style="height: 300px;width: 400px;position: absolute;top:0;bottom: 0;left: 0;right: 0;margin: auto;">
-
-			<img src="/img/logo.jpg" style="width:125px;"><h3 style="color: rgb(60, 60, 60);font-size: 24px;font-weight: 300;font-family: 'Lato';margin-top:20px !important;">CLUBS</h3>
+			<h3 style="background:#522E91; color: white;font-size: 24px;font-weight: 300;font-family: 'Lato';margin-top:20px !important;width: 195px;line-height: 40px;padding-bottom: 3px;font-weight: 400;border-radius: 2px;margin-bottom: 23px !important;">NYU Shanghai</h3>
+			<h3 style="color: rgb(60, 60, 60);font-size: 24px;font-weight: 300;font-family: 'Lato';margin-top:0px !important;">CLUBS</h3>
 
 			{{ renderPage }}
 		</div>
@@ -313,8 +313,9 @@
 			</div>
 		{{/each}}
 
-<!-- 		<div id="my-disqus">
-        <div id="disqus_thread"></div> -->
+		<hr>
+		<div id="my-disqus" style="margin-top:45px;">
+        <div id="disqus_thread"></div>
 	{{/with}}
 </template>
 
@@ -322,7 +323,7 @@
 	<div style="font-family: 'Oxygen', Arial !important;">
 	<h4 style="">What is the process for making a club?</h4>
 	<p style="margin-top: 20px;">You can <a href="http://shanghai.nyu.edu/resources/involvement/ncd">click here</a> for the official NYUSH NCD policies. Below is a condensed version.</p>
-	<p style="margin-top: 15px;"><strong>Step 1</strong> is completing an application for the club. The founding member requirements for this are as follows: 4 NYU students (minimum 2 from NYU Shanghai) that includes 2 nationalities. You must also write a Statement of Club Actitivies and Goals, which outlines activities the club will engage in and what the club hopes to accomplish through them. This is similar to the description box when posting a club here.</p>
+	<p style="margin-top: 15px;"><strong>Step 1</strong> is completing an application for the club. The founding member requirements for this are as follows: 4 NYU students (minimum 2 from NYU Shanghai) that includes 2 nationalities. No more than 50% of the founding members and club membership can be of the same nationality. You must also write a Statement of Club Actitivies and Goals, which outlines activities the club will engage in and what the club hopes to accomplish through them. This is similar to the description box when posting a club here.</p>
 	<p style="margin-top: 15px;"><strong>Step 2</strong> takes place after the club application is approved by the Student Government. Club founders will attend the New Club Development workshop and complete a series of tasks to create the club. This includes writing a mission statement (during the Mission Statement Workshop), drafting a club constitution, electing club officers, and planning club activities. There will be separate deadlines for the above tasks, and at this point there must be 10 NYU Shanghai students as members. Membership must be non-exlusive.
 	</p>
 
