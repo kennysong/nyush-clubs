@@ -15,8 +15,8 @@ Meteor.methods({
 })
 
 Accounts.validateNewUser(function (user) {
-    if(user.services.google.email.match(/example\.org$/)) {
+    if(user.services.google.email.match(/nyu\.edu$/)) {
         return true;
     }
-    throw new Meteor.Error(403, "You must sign in using a example.org account");
+    throw new Meteor.Error(403, "You must sign in using a @nyu.edu account");
 });
