@@ -133,7 +133,17 @@
 		    <label for="a_nationality">Your Nationality</label>
 			<input class="form-control" type="text" id="a_nationality" placeholder="Nationality">
 		</div>
-		
+
+		<div class="form-group">
+		    <label for="a_job">You are a:</label>
+		    <select id="a_job" class="form-control tagged" style="width:190px">
+				<option>NYUSH Student</option>
+				<option>NYU Study Away Student</option>
+				<option>Professor</option>
+				<option>Staff</option>
+			</select>
+		</div>
+
 		{{#isolate}}
 			<button id="a_submit" class="btn btn-primary">Submit</button>
 		{{/isolate}}
@@ -173,6 +183,16 @@
 		<div class="form-group">
 		    <label for="f_nationality">Your Nationality</label>
 		    <input type="text" id="f_nationality" class="form-control" placeholder="Nationality">
+		</div>
+
+		<div class="form-group">
+		    <label for="f_job">You are a:</label>
+		    <select id="f_job" class="form-control tagged" style="width:190px">
+				<option>NYUSH Student</option>
+				<option>NYU Study Away Student</option>
+				<option>Professor</option>
+				<option>Staff</option>
+			</select>
 		</div>
 
 		<div class="form-group">
@@ -310,6 +330,7 @@
 				<h4><a href="/user/{{netid}}">{{ name }}</a></h4>
 				<p>{{ netid }}@nyu.edu</p>
 				<p>{{ nationality }}</p>
+				<p><em>{{ job }}</em></p>
 			</div>
 		{{/each}}
 
@@ -322,7 +343,7 @@
 <template name="how">
 	<div style="font-family: 'Oxygen', Arial !important;">
 	<h4 style="">What is the process for making a club?</h4>
-	<p style="margin-top: 20px;">You can <a href="http://shanghai.nyu.edu/resources/involvement/ncd">click here</a> for the official NYUSH NCD policies. Below is a condensed version.</p>
+	<p style="margin-top: 20px;">You can <a href="http://shanghai.nyu.edu/resources/involvement/ncd" target="_blank">click here</a> for the official NYUSH NCD policies. Below is a condensed version.</p>
 	<p style="margin-top: 15px;"><strong>Step 1</strong> is completing an application for the club. The founding member requirements for this are as follows: 4 NYU students (minimum 2 from NYU Shanghai) that includes 2 nationalities. No more than 50% of the founding members and club membership can be of the same nationality. You must also write a Statement of Club Actitivies and Goals, which outlines activities the club will engage in and what the club hopes to accomplish through them. This is similar to the description box when posting a club here.</p>
 	<p style="margin-top: 15px;"><strong>Step 2</strong> takes place after the club application is approved by the Student Government. Club founders will attend the New Club Development workshop and complete a series of tasks to create the club. This includes writing a mission statement (during the Mission Statement Workshop), drafting a club constitution, electing club officers, and planning club activities. There will be separate deadlines for the above tasks, and at this point there must be 10 NYU Shanghai students as members. Membership must be non-exlusive.
 	</p>
@@ -408,6 +429,7 @@
 		<h3 style="text-align:center;margin-bottom: 15px !important;">{{name}}</h3>
 		<p style="text-align:center;color: rgb(43, 43, 43);font-weight: 300;">{{ nationality }}</p>
 		<p style="text-align:center;font-weight: 300;"><a href="mailto: {{ netid }}@nyu.edu">{{ netid }}@nyu.edu</a></p>
+		<p style="text-align:center;color: rgb(43, 43, 43);font-weight: 300;"><em>{{ job }}</em></p>
 
 		<h5 style="font-family:'Oxygen', Arial !important; font-size:22px;color: rgb(75, 74, 74);margin-top: 70px;text-decoration: underline;">Founded</h5>
 		{{#each found_club}}

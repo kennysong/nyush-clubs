@@ -322,6 +322,7 @@ Template.add.events({
     var a_name = $('#a_name').val();
     var a_netid = $('#a_netid').val();
     var a_nationality = $('#a_nationality').val();
+    var a_job = $('#a_job').val();
     var a_errors = [];
 
     if (a_name == '') {
@@ -360,7 +361,7 @@ Template.add.events({
       Clubs.update(club._id, {$inc: {members: 1}, $push: {member_list: a_netid}});
 
       if (!(Users.findOne({'netid':a_netid}))) {
-        Users.insert({'name':a_name, 'netid':a_netid, 'nationality':a_nationality});
+        Users.insert({'name':a_name, 'netid':a_netid, 'nationality':a_nationality, 'job':a_job});
       }
 
       $('#a_submit').text('Success! Redirecting...');
@@ -377,6 +378,7 @@ Template.add.events({
     if (user) {
       $('#a_name').val(user.name);
       $('#a_nationality').val(user.nationality);
+      $('#a_job').val(user.job)
     }
   }
 })
@@ -471,6 +473,7 @@ Template.create.events({
     var f_netid = $('#f_netid').val();
     var f_nationality = $('#f_nationality').val();
     var f_description = $('#f_description').val();
+    var f_job = $('#f_job').val();
 
     var errors = [];
 
@@ -537,7 +540,7 @@ Template.create.events({
 
       Meteor.call('add_timestamp', url)
 
-      var user = {'netid':f_netid, 'name':f_name, 'nationality':f_nationality}
+      var user = {'netid':f_netid, 'name':f_name, 'nationality':f_nationality, 'job':f_job}
       Users.insert(user);
 
       $('#create_submit').text('Success! Redirecting...');
@@ -575,6 +578,7 @@ Template.create.events({
     if (user) {
       $('#f_name').val(user.name);
       $('#f_nationality').val(user.nationality);
+      $('#f_job').val(user.job)
     }
   }
 });
@@ -596,7 +600,7 @@ Template.user.user_obj = function() {
   }
 
   var user_obj = {'found_club':found_club, 'join_club': filt_join_club, 'name':user.name, 
-              'netid':netid, 'nationality':user.nationality};
+              'netid':netid, 'nationality':user.nationality, 'job':user.job};
 
   return user_obj
 
