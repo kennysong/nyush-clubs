@@ -625,7 +625,7 @@ function google_login() {
       console.log(email)
       console.log(hash)
 
-      $.cookie('session', sha1(email), {expires: 1, path: '/'});
+      $.cookie('session', email+'|'+sha1(email), {expires: 1, path: '/'});
 
     }
     

@@ -7,18 +7,19 @@ Handlebars.registerHelper("logged_in", function () {
 });
 
 function logged_in() {
-  if (!Meteor.user()) {
-    $.removeCookie('session');
-    Meteor.logout()
-    return false
-  }
-  if (Meteor.user().services.google.email) {
-    var hash = $.cookie('session');
-    var email = Meteor.user().services.google.email;
+  if ($.cookie('session')) {
+    var email = $.cookie('session').split('|')[0];
+    var hash = $.cookie('session').split('|')[1];
+    
+    console.log(email)
+    console.log(hash)
+    console.log(sha1(email))
+
     if (hash === sha1(email)) {
       return true
     }
   }
+
   $.removeCookie('session');
   Meteor.logout()
   return false
