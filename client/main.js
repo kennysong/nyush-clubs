@@ -627,6 +627,7 @@ function google_login() {
 
       $.cookie('session', email+'|'+sha1(email), {expires: 1, path: '/'});
 
+      Meteor.Router.to('/');
     }
     
 });
