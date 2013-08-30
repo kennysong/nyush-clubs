@@ -6,11 +6,25 @@ Handlebars.registerHelper("logged_in", function () {
   return logged_in();
 });
 
-function logged_in() {
+function id_club_match(id, url) {
+  var club = Clubs.findOne({'url':url});
+  if (club) {
+    return club.netid === id;
+  }
+  return false
+}
+
+function logged_in(id) {
   if ($.cookie('session')) {
     var email = $.cookie('session').split('|')[0];
     var hash = $.cookie('session').split('|')[1];
     
+    if (id) {
+      if (id +'@nyu.edu' != email) {
+        return false
+      }
+    }
+
     console.log(email)
     console.log(hash)
     console.log(sha1(email))
@@ -118,6 +132,23 @@ Meteor.Router.add(
         if (user) {
           document.title = user.name;
           return 'user'; 
+        } else {
+          return 'error'
+        }
+      } else {
+        return 'login'
+      }
+    },
+    '/edit/:id/:url' : function(id, url) {
+      if (logged_in(id) && id_club_match(id, url)) { 
+        Session.set("activeNav", null);
+        Session.set('club', url);
+
+        var club = Clubs.findOne({'url':url});
+
+        if (club) {
+          document.title = 'Edit ' + club.clubname;
+          return 'edit'; 
         } else {
           return 'error'
         }

@@ -307,12 +307,18 @@
 	{{#with club}}
 		<h3 style="text-align:center;margin-bottom:12px !important">{{ clubname }}</h3>
 		<p style="text-align:center"><span style="font-weight:300;color:gray;">posted by</span> <a href="/user/{{netid}}">{{ founder }}</a></p>
+		{{#if edit_button}}
+		<center>
+			<a id="editbtn" class="btn btn-success btn-xs" href="/edit/{{netid}}/{{url}}">Edit this page</a>
+		</center>
+		{{/if}}
 
 		<div class="panel panel-primary" style="margin-top: 40px;">
 			<div class="panel-heading"><span style="font-weight:300;color:white">Description:</span></div>
 			  <div class="panel-body"><pre>{{ description }}<pre></div>
 			</div>
 		</div>
+
 
 		<div style="margin: 25px 0px -5px;float:right;">
 			<span style="font-weight:300;color:gray;font-size:16px;">Tags: </span>
@@ -363,7 +369,7 @@
 <template name="error">
 	<h3 style="text-align:center;">Searching for the page...</h3>
 
-	<h3 style="text-align:center;">If this page does not automatically update in a few seconds, maybe the URL is incorrect.</h3>
+	<h3 style="text-align:center;">If this page does not automatically update in a few seconds, the URL is incorrect.</h3>
 </template>
 
 <template name="new">
@@ -468,4 +474,38 @@
 
 <template name="login">
 	<button id="login" class="btn btn-default btn-lg" style="margin-top:25px">Login to your NYU Account</button>
+</template>
+
+<template name="edit">
+	<h3 style="text-align:center">You may edit the following fields:</h3>
+
+	<h3 id="loading" style="text-align:center; font-size:20px !important;">Loading fields...</h3>
+
+	{{#constant}}
+	<form role="form" style="width:300px;">
+		<div class="form-group">
+		    <label for="e_clubname">Club Name</label>
+		    <input type="text" id="e_clubname" class="form-control" placeholder="Club Name" data-toggle="tooltip" data-title="Note: Comments will be lost if the club name is changed" data-placement="rights">
+		</div>
+		{{#constant}}
+		<div class="form-group">
+		    <label for="e_description">Description:</label>
+		    <textarea id="e_description" class="form-control" placeholder="Mission, goals, activities, etc." style="width: 650px;height: 125px;"></textarea>
+		</div>
+		{{/constant}}
+	</form>
+	{{/constant}}
+
+
+			{{#isolate}}<button id="edit_submit" class="btn btn-primary">Submit</button>{{/isolate}}
+
+	{{#isolate}}
+		{{#if edit_message}}
+		<div id="edit_notification" class="alert alert-danger" style="margin-top:25px;width:450px;">
+			{{#each edit_message}}
+				<p>{{{this}}}</p>
+			{{/each}}
+		</div>
+		{{/if}}
+	{{/isolate}}
 </template>

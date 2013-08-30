@@ -188,6 +188,14 @@ function sha1 (str) {
   return temp.toLowerCase();
 }
 
+function id_club_match(id, url) {
+  var club = Clubs.findOne({'url':url});
+  if (club) {
+    return club.netid === id;
+  }
+  return false
+}
+
 function arr_obj_diff(a,b) {
   var diff = []
   
@@ -464,6 +472,13 @@ Template.club.rendered = function () {
     })();
 }
 
+Template.club.edit_button = function () {
+  var url = window.location.href.split('/').pop();
+  var netid = $.cookie('session').split('@')[0];
+
+  return id_club_match(netid, url)
+}
+
 Template.create.events({
   'click #create_submit' : function () {
     event.preventDefault();
@@ -635,4 +650,79 @@ function google_login() {
 
 Template.login.events = {
   'click #login': google_login
+}
+
+Template.edit.edit_message = function () {
+  return Session.get('edit_message');
+}
+
+Template.edit.events({
+  'click #edit_submit' : function () {
+    event.preventDefault();
+
+    var e_clubname = $('#e_clubname').val();
+    var e_description = $('#e_description').val();
+
+    var errors = [];
+
+    var old_url = window.location.href.split('/').pop();
+    var club = Clubs.findOne({'url':old_url});
+
+    if (e_clubname == '') {
+      errors.push('Please enter a club name.');
+    } else if (e_clubname.length > 100) {
+      errors.push('Club name must be under 100 characters.');
+    } else if (e_clubname != club.clubname) {
+      var lc = e_clubname.replace(/\s+/g, '-').toLowerCase();
+      var url = lc.replace(/[^a-zA-Z0-9-_]/g, '');
+      if (Clubs.findOne({'url':url})) {
+        errors.push('That club already exists. <a href="/club/'+url+'">Check it out!</a>')
+      }
+    }
+
+    if (e_description == '') {
+      errors.push('Please enter a club description.');
+    }
+
+    if (errors.length != 0) {
+      Session.set('edit_message', errors);
+      $('html, body').animate({scrollTop:$(document).height()}, 'slow');
+
+    } else {
+      var lc = e_clubname.replace(/\s+/g, '-').toLowerCase();
+      var url = lc.replace(/[^a-zA-Z0-9-_]/g, '');
+      Session.set('edit_message', null);
+
+      
+
+      $('#edit_submit').text('Success! Redirecting...');
+      $('#edit_submit').prop('disabled', true);
+
+      Session.set("activeNav", null);
+
+      setTimeout(function(){
+        Meteor.Router.to('/club/'+url);
+        Clubs.update(club._id, {$set: {'clubname':e_clubname, 'description':e_description, 'url':url}});
+      }, 2000);
+
+    }
+
+  }
+});
+
+Template.edit.rendered = function() {
+  $('input').tooltip();
+}
+
+Template.edit.created = function () {
+  setTimeout(function(){
+    $('#loading').hide();
+
+    var url = window.location.href.split('/').pop();
+    var club = Clubs.findOne({'url':url});
+
+    $('#e_clubname').val(club.clubname);
+    $('#e_description').val(club.description)
+
+  }, 1500);
 }
